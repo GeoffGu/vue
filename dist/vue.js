@@ -6329,7 +6329,7 @@
   // special binding prefixes
   var bindRE = /^v-bind-|^:/;
   var onRE = /^v-on-|^@/;
-  var argRE = /-(.*)$/;
+  var argRE = /:(.*)$/;
   var modifierRE = /\.[^\.]+/g;
   var transitionRE = /^(v-bind-|:)?transition$/;
 
