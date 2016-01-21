@@ -1109,7 +1109,7 @@ function getAttr(node, _attr) {
 }
 
 /**
- * Get an attribute with colon or v-bind: prefix.
+ * Get an attribute with colon or v-bind- prefix.
  *
  * @param {Node} node
  * @param {String} name
@@ -1119,7 +1119,7 @@ function getAttr(node, _attr) {
 function getBindAttr(node, name) {
   var val = getAttr(node, ':' + name);
   if (val === null) {
-    val = getAttr(node, 'v-bind:' + name);
+    val = getAttr(node, 'v-bind-' + name);
   }
   return val;
 }
@@ -1133,7 +1133,7 @@ function getBindAttr(node, name) {
  */
 
 function hasBindAttr(node, name) {
-  return node.hasAttribute(name) || node.hasAttribute(':' + name) || node.hasAttribute('v-bind:' + name);
+  return node.hasAttribute(name) || node.hasAttribute(':' + name) || node.hasAttribute('v-bind-' + name);
 }
 
 /**
@@ -3527,12 +3527,12 @@ var bind = {
         var raw = attr + '="' + this.descriptor.raw + '": ';
         // warn src
         if (attr === 'src') {
-          warn(raw + 'interpolation in "src" attribute will cause ' + 'a 404 request. Use v-bind:src instead.');
+          warn(raw + 'interpolation in "src" attribute will cause ' + 'a 404 request. Use v-bind-src instead.');
         }
 
         // warn style
         if (attr === 'style') {
-          warn(raw + 'interpolation in "style" attribute will cause ' + 'the attribute to be discarded in Internet Explorer. ' + 'Use v-bind:style instead.');
+          warn(raw + 'interpolation in "style" attribute will cause ' + 'the attribute to be discarded in Internet Explorer. ' + 'Use v-bind-style instead.');
         }
       }
     }
@@ -3550,7 +3550,7 @@ var bind = {
     }
   },
 
-  // share object handler with v-bind:class
+  // share object handler with v-bind-class
   handleObject: style.handleObject,
 
   handleSingle: function handleSingle(attr, value) {
@@ -3667,7 +3667,7 @@ var on = {
     }
 
     if (typeof handler !== 'function') {
-      process.env.NODE_ENV !== 'production' && warn('v-on:' + this.arg + '="' + this.expression + '" expects a function value, ' + 'got ' + handler);
+      process.env.NODE_ENV !== 'production' && warn('v-on-' + this.arg + '="' + this.expression + '" expects a function value, ' + 'got ' + handler);
       return;
     }
 
@@ -3876,7 +3876,7 @@ var radio = {
     var el = this.el;
 
     this.getValue = function () {
-      // value overwrite via v-bind:value
+      // value overwrite via v-bind-value
       if (el.hasOwnProperty('_value')) {
         return el._value;
       }
@@ -6323,11 +6323,11 @@ function getDefault(vm, options) {
 }
 
 // special binding prefixes
-var bindRE = /^v-bind:|^:/;
-var onRE = /^v-on:|^@/;
+var bindRE = /^v-bind-|^:/;
+var onRE = /^v-on-|^@/;
 var argRE = /:(.*)$/;
 var modifierRE = /\.[^\.]+/g;
-var transitionRE = /^(v-bind:|:)?transition$/;
+var transitionRE = /^(v-bind-|:)?transition$/;
 
 // terminal directives
 var terminalDirectives = ['for', 'if'];
@@ -6939,7 +6939,7 @@ function compileDirectives(attrs, options) {
       // warn against mixing mustaches with v-bind
       if (process.env.NODE_ENV !== 'production') {
         if (name === 'class' && Array.prototype.some.call(attrs, function (attr) {
-          return attr.name === ':class' || attr.name === 'v-bind:class';
+          return attr.name === ':class' || attr.name === 'v-bind-class';
         })) {
           warn('class="' + rawValue + '": Do not mix mustache interpolation ' + 'and v-bind for "class" on the same element. Use one or the other.');
         }
@@ -7445,7 +7445,7 @@ function stateMixin (Vue) {
   };
 }
 
-var eventRE = /^v-on:|^@/;
+var eventRE = /^v-on-|^@/;
 
 function eventsMixin (Vue) {
 

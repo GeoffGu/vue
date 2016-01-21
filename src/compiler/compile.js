@@ -20,11 +20,11 @@ import {
 } from '../util/index'
 
 // special binding prefixes
-const bindRE = /^v-bind:|^:/
-const onRE = /^v-on:|^@/
+const bindRE = /^v-bind-|^:/
+const onRE = /^v-on-|^@/
 const argRE = /:(.*)$/
 const modifierRE = /\.[^\.]+/g
-const transitionRE = /^(v-bind:|:)?transition$/
+const transitionRE = /^(v-bind-|:)?transition$/
 
 // terminal directives
 const terminalDirectives = [
@@ -663,7 +663,7 @@ function compileDirectives (attrs, options) {
       // warn against mixing mustaches with v-bind
       if (process.env.NODE_ENV !== 'production') {
         if (name === 'class' && Array.prototype.some.call(attrs, function (attr) {
-          return attr.name === ':class' || attr.name === 'v-bind:class'
+          return attr.name === ':class' || attr.name === 'v-bind-class'
         })) {
           warn(
             'class="' + rawValue + '": Do not mix mustache interpolation ' +
